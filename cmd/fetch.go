@@ -25,7 +25,7 @@ func main() {
 		log.Fatalf("%s environment variable not set", COOKIE_ENV_NAME)
 	}
 
-	url := fmt.Sprintf("%s/2023/day/%d/input", BASE_URL, day)
+	url := fmt.Sprintf("%s/2024/day/%d/input", BASE_URL, day)
 	log.Printf("about to fetch %s", url)
 
 	req, err := http.NewRequest("GET", url, nil)
