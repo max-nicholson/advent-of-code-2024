@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 )
 
 func ReadLines(path string) ([]string, error) {
@@ -21,4 +22,13 @@ func ReadLines(path string) ([]string, error) {
 	}
 
 	return lines, scanner.Err()
+}
+
+func ReadFile(path string) (string, error) {
+	b, err := os.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+
+	return strings.TrimRight(string(b), "\n"), nil
 }
