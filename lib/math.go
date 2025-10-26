@@ -32,3 +32,19 @@ func Abs[T constraints.Integer](x T) T {
 	}
 	return x
 }
+
+func PowInt(base, exp int) int {
+	result := 1
+	for {
+		if exp&1 == 1 {
+			result *= base
+		}
+		exp >>= 1
+		if exp == 0 {
+			break
+		}
+		base *= base
+	}
+
+	return result
+}
