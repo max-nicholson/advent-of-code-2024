@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -40,8 +41,13 @@ func main() {
 	}
 	defer resp.Body.Close()
 
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatalf("failed to read body: %w", err)
+	}
+
 	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("non-OK response, got %d", resp.StatusCode)
+		log.Fatalf("non-OK response, got %d\n%s", resp.StatusCode, string(data))
 	}
 
 	log.Printf("successfully fetched %s", url)
@@ -60,7 +66,7 @@ func main() {
 		log.Printf("written day %02d to %s", day, path)
 	}()
 
-	_, err = f.ReadFrom(resp.Body)
+	_, err = f.Write((data))
 	if err != nil {
 		log.Fatalf("failed to write response to file at %s: %v", path, err)
 	}

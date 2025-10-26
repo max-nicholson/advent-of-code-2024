@@ -1,8 +1,8 @@
 run day:
     go run pkg/$(printf "%02.0f" {{day}})/main.go
 
-test day:
-    go test ./pkg/$(printf "%02.0f" {{day}})
+test day +args="":
+    go test ./pkg/$(printf "%02.0f" {{day}}) {{args}}
 
 fetch day:
     go run cmd/fetch.go --day {{day}}
